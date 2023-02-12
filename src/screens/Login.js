@@ -1,8 +1,31 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Alert, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import InputBar from '../component/InputBar'
 
 const Login = ({ navigation }) => {
+    const [email, setEmail] = useState()
+    const [pass, setPass] = useState()
+
+    const showToastWithGravityAndOffset = () => {
+        ToastAndroid.showWithGravityAndOffset(
+            'Please Enter Email & Password',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            50,
+        );
+    };
+
+
+    const handleChange = () => {
+        // if (email === 'admin@saylani.com' && pass === 'admin123') {
+        navigation.navigate('AdminHome')
+
+        // } else (
+        //     showToastWithGravityAndOffset()
+        // )
+
+    }
     return (
         <>
             <View style={{ marginTop: 100 }}>
@@ -10,14 +33,14 @@ const Login = ({ navigation }) => {
                 <Text style={styles.textTwo}>ONLINE DISCOUNT STORE</Text>
             </View>
             <View style={{ marginTop: 20 }}>
-                <InputBar Icon='mail' Placeholder='Enter your email' />
-                <InputBar Icon='lock-closed' Placeholder='Enter your Password' />
-                <Text style={{ fontSize: 18, fontWeight: '700', color: '#024F9D', left: 40, top: 10 }}>
+                <InputBar Icon='mail' Placeholder='Enter your email' onChangeText={newText => setEmail(newText)} />
+                <InputBar Icon='lock-closed' Placeholder='Enter your Password' onChangeText={newText => setPass(newText)} />
+                <Text style={{ fontSize: 18, fontWeight: '700', color: '#02S4F9D', left: 40, top: 10 }}>
                     Forgot Password?
                 </Text>
             </View>
             <View style={{ marginTop: 100 }}>
-                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity style={styles.btn} onPress={handleChange}>
                     <Text style={styles.text}>Sign In</Text>
                 </TouchableOpacity>
             </View>
