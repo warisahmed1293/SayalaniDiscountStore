@@ -7,7 +7,7 @@ const Signup = ({ navigation }) => {
     const { register, setValue, handleSubmit, control, reset, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log('d', data)
+        console.log('data', data)
     }
 
     return (
