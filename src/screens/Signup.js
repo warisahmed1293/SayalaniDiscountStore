@@ -1,12 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import InputBar from '../component/InputBar'
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 const Signup = ({ navigation }) => {
-    const { resgister, handleSubmit } = useForm();
-    const onSubmit = (d) => {
-        console.log('d', d)
+    const { register, setValue, handleSubmit, control, reset, formState: { errors } } = useForm();
+
+    const onSubmit = (data) => {
+        console.log('d', data)
     }
 
     return (
@@ -15,20 +16,73 @@ const Signup = ({ navigation }) => {
                 <Text style={styles.texOne}>SAYLANI WELFARE</Text>
                 <Text style={styles.textTwo}>ONLINE DISCOUNT STORE</Text>
             </View>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <View style={{ marginTop: 20 }}>
-                    <InputBar {...register('fullName')} Icon='person' Placeholder='Full Name' />
-                    <InputBar {...register('contact')} Icon='call' Placeholder='Contact' />
-                    <InputBar {...register('email')} Icon='mail' Placeholder='Email' />
-                    <InputBar {...register('password')} Icon='lock-closed' Placeholder='Password' />
-
-                </View>
-                <View style={{ marginTop: 50 }}>
-                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Home')}>
-                        <Text style={styles.text}>Sign up</Text>
-                    </TouchableOpacity>
-                </View>
-            </form>
+            <View style={{ marginTop: 20 }}>
+                {/* Full Name*/}
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <InputBar
+                            Icon='person'
+                            Placeholder='Full Name'
+                            onBlur={onBlur}
+                            onChangeText={value => onChange(value)}
+                            value={value}
+                        />
+                    )}
+                    name="name"
+                    rules={{ required: true }}
+                />
+                {/* Contact */}
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <InputBar
+                            Icon='call'
+                            Placeholder='Contact'
+                            onBlur={onBlur}
+                            onChangeText={value => onChange(value)}
+                            value={value}
+                        />
+                    )}
+                    name="contact"
+                    rules={{ required: true }}
+                />
+                {/* Email */}
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <InputBar
+                            Icon='mail'
+                            Placeholder='Email'
+                            onBlur={onBlur}
+                            onChangeText={value => onChange(value)}
+                            value={value}
+                        />
+                    )}
+                    name="email"
+                    rules={{ required: true }}
+                />
+                {/* Password */}
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <InputBar
+                            Icon='lock-closed'
+                            Placeholder='Password'
+                            onBlur={onBlur}
+                            onChangeText={value => onChange(value)}
+                            value={value}
+                        />
+                    )}
+                    name="password"
+                    rules={{ required: true }}
+                />
+            </View>
+            <View style={{ marginTop: 50 }}>
+                <TouchableOpacity style={styles.btn} onPress={handleSubmit(onSubmit)}>
+                    <Text style={styles.text}>Sign up</Text>
+                </TouchableOpacity>
+            </View>
 
             <View style={{ alignSelf: 'center', top: 20 }}>
                 <Text style={{ fontSize: 18, color: '#024F9D', fontWeight: '600' }}>
