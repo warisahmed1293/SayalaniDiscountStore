@@ -67,7 +67,7 @@ const AdminAccount = () => {
                     {
                         arrayItem.map((item, key) => (
                             <TouchableOpacity style={{ marginVertical: 5 }}>
-                                <Category item={item} />
+                                <Category item={item} key={key} />
                             </TouchableOpacity>
                         ))
                     }
