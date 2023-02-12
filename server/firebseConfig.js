@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
 import { initializeApp } from "firebase/app";
 import 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBO6Tcx93lhtAcd34i9U7svkxi-a3chfic",
@@ -14,5 +15,16 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+const auth = getAuth(app);
 
-export default app;
+async function signUpNewUser(userInfo) {
+    const { name, contact, email, password } = userInfo
+    const userCredential = await createUserWithEmailAndPassword(auth, name, contact, email, password)
+    await addUserToDB(userInfo, userCredential.user.uid)
+}
+
+
+
+export {
+    signUpNewUser
+};

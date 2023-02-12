@@ -1,26 +1,35 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import InputBar from '../component/InputBar'
+import { useForm } from 'react-hook-form';
 
 const Signup = ({ navigation }) => {
+    const { resgister, handleSubmit } = useForm();
+    const onSubmit = (d) => {
+        console.log('d', d)
+    }
+
     return (
         <>
             <View style={{ marginTop: 100 }}>
                 <Text style={styles.texOne}>SAYLANI WELFARE</Text>
                 <Text style={styles.textTwo}>ONLINE DISCOUNT STORE</Text>
             </View>
-            <View style={{ marginTop: 20 }}>
-                <InputBar Icon='person' Placeholder='Enter your email' />
-                <InputBar Icon='call' Placeholder='Enter your Password' />
-                <InputBar Icon='mail' Placeholder='Enter your Password' />
-                <InputBar Icon='lock-closed' Placeholder='Enter your Password' />
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <View style={{ marginTop: 20 }}>
+                    <InputBar {...register('fullName')} Icon='person' Placeholder='Full Name' />
+                    <InputBar {...register('contact')} Icon='call' Placeholder='Contact' />
+                    <InputBar {...register('email')} Icon='mail' Placeholder='Email' />
+                    <InputBar {...register('password')} Icon='lock-closed' Placeholder='Password' />
 
-            </View>
-            <View style={{ marginTop: 50 }}>
-                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Home')}>
-                    <Text style={styles.text}>Sign up</Text>
-                </TouchableOpacity>
-            </View>
+                </View>
+                <View style={{ marginTop: 50 }}>
+                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Home')}>
+                        <Text style={styles.text}>Sign up</Text>
+                    </TouchableOpacity>
+                </View>
+            </form>
+
             <View style={{ alignSelf: 'center', top: 20 }}>
                 <Text style={{ fontSize: 18, color: '#024F9D', fontWeight: '600' }}>
                     Already have an account?
