@@ -1,8 +1,15 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import InputBar from '../component/InputBar'
+import { Controller, useForm } from 'react-hook-form';
 
 const Signup = ({ navigation }) => {
+    const { register, setValue, handleSubmit, control, reset, formState: { errors } } = useForm();
+
+    const onSubmit = (data) => {
+        console.log('data', data)
+    }
+
     return (
         <>
             <View style={{ marginTop: 100 }}>
@@ -10,17 +17,73 @@ const Signup = ({ navigation }) => {
                 <Text style={styles.textTwo}>ONLINE DISCOUNT STORE</Text>
             </View>
             <View style={{ marginTop: 20 }}>
-                <InputBar Icon='person' Placeholder='Enter your email' />
-                <InputBar Icon='call' Placeholder='Enter your Password' />
-                <InputBar Icon='mail' Placeholder='Enter your Password' />
-                <InputBar Icon='lock-closed' Placeholder='Enter your Password' />
-
+                {/* Full Name*/}
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <InputBar
+                            Icon='person'
+                            Placeholder='Full Name'
+                            onBlur={onBlur}
+                            onChangeText={value => onChange(value)}
+                            value={value}
+                        />
+                    )}
+                    name="name"
+                    rules={{ required: true }}
+                />
+                {/* Contact */}
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <InputBar
+                            Icon='call'
+                            Placeholder='Contact'
+                            onBlur={onBlur}
+                            onChangeText={value => onChange(value)}
+                            value={value}
+                        />
+                    )}
+                    name="contact"
+                    rules={{ required: true }}
+                />
+                {/* Email */}
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <InputBar
+                            Icon='mail'
+                            Placeholder='Email'
+                            onBlur={onBlur}
+                            onChangeText={value => onChange(value)}
+                            value={value}
+                        />
+                    )}
+                    name="email"
+                    rules={{ required: true }}
+                />
+                {/* Password */}
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <InputBar
+                            Icon='lock-closed'
+                            Placeholder='Password'
+                            onBlur={onBlur}
+                            onChangeText={value => onChange(value)}
+                            value={value}
+                        />
+                    )}
+                    name="password"
+                    rules={{ required: true }}
+                />
             </View>
             <View style={{ marginTop: 50 }}>
-                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity style={styles.btn} onPress={handleSubmit(onSubmit)}>
                     <Text style={styles.text}>Sign up</Text>
                 </TouchableOpacity>
             </View>
+
             <View style={{ alignSelf: 'center', top: 20 }}>
                 <Text style={{ fontSize: 18, color: '#024F9D', fontWeight: '600' }}>
                     Already have an account?
