@@ -19,7 +19,7 @@ const Login = ({ navigation }) => {
 
     const handleChange = () => {
         // if (email === 'admin@saylani.com' && pass === 'admin123') {
-        navigation.navigate('AdminHome')
+        navigation.navigate('AdminTab')
 
         // } else (
         //     showToastWithGravityAndOffset()
